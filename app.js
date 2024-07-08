@@ -63,6 +63,11 @@ function updateChooseSection() {
         todoItem.appendChild(label);
         todoList.appendChild(todoItem);
     });
+
+    // Handle blank state
+    if (todos.length === 0) {
+        todoList.textContent = 'no todos yet 😌';
+    }
 }
 
 function toggleTodoDone(index) {
