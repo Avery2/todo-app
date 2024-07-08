@@ -15,19 +15,26 @@ function addTodo() {
     const newTodo = document.getElementById('new-todo').value;
     if (newTodo) {
         recordHistory();
+
+        // Add new todo to the end of the list
         todos.push({ text: newTodo, done: false });
+
+        // Clear the input field and update the choose section
         document.getElementById('new-todo').value = '';
         updateChooseSection();
     }
 }
 
 function updateChooseSection() {
+    // Clear the todo list
     const todoList = document.getElementById('todo-list');
     todoList.innerHTML = '';
 
+    // Sort finished todos to the bottom
     const sortedTodos = todos.slice().map((todo, index) => ({ ...todo, originalIndex: index }));
     sortedTodos.sort((a, b) => a.done - b.done);
 
+    // Create todo items
     sortedTodos.forEach(todo => {
         const todoItem = document.createElement('div');
         todoItem.classList.add('todo-item');
@@ -53,7 +60,6 @@ function updateChooseSection() {
 function toggleTodoDone(index) {
     recordHistory();
     todos[index].done = !todos[index].done;
-    updateChooseSection();
     updateDoSection();
 }
 
