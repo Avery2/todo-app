@@ -75,7 +75,7 @@ function updateDoSection() {
         todoItem.appendChild(text);
         currentTodo.appendChild(todoItem);
     } else {
-        currentTodo.textContent = 'No TODOs left!';
+        currentTodo.textContent = 'no todos left 😌';
     }
 }
 
