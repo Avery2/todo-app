@@ -51,6 +51,7 @@ function toggleTodoDone(index) {
     recordHistory();
     todos[index].done = !todos[index].done;
     renderTodoList();
+    updateDoSection();
 }
 
 function updateDoSection() {
