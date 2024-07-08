@@ -24,11 +24,11 @@ function addTodo() {
         recordHistory();
         todos.push({ text: newTodo, done: false });
         document.getElementById('new-todo').value = '';
-        renderTodoList();
+        updateChooseSection();
     }
 }
 
-function renderTodoList() {
+function updateChooseSection() {
     const todoList = document.getElementById('todo-list');
     todoList.innerHTML = '';
 
@@ -60,7 +60,7 @@ function renderTodoList() {
 function toggleTodoDone(index) {
     recordHistory();
     todos[index].done = !todos[index].done;
-    renderTodoList();
+    updateChooseSection();
     updateDoSection();
 }
 
@@ -87,6 +87,7 @@ function updateDoSection() {
     } else {
         currentTodo.textContent = 'no todos left 😌';
     }
+    updateChooseSection()
 }
 
 function deferNext() {
@@ -131,7 +132,7 @@ function undo() {
     if (history.length > 0) {
         redoHistory.push(JSON.stringify(todos));
         todos = JSON.parse(history.pop());
-        renderTodoList();
+        updateChooseSection();
         updateDoSection();
     }
 }
@@ -140,13 +141,13 @@ function redo() {
     if (redoHistory.length > 0) {
         history.push(JSON.stringify(todos));
         todos = JSON.parse(redoHistory.pop());
-        renderTodoList();
+        updateChooseSection();
         updateDoSection();
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderTodoList();
+    updateChooseSection();
     document.addEventListener('keydown', (e) => {
         if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
             if (e.shiftKey) {
