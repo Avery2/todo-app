@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="container">
-        <div id="nav" class="section">
+        <div id="nav" class="nav-section">
             <nav>
                 <button onclick="showSection('choose')">Choose</button>
                 <button onclick="showSection('do')">Do</button>
@@ -19,7 +19,7 @@
 
         <div id="choose" class="section">
             <h3>Choose</h3>
-            <div id="todo-list" class="section"></div>
+            <div id="todo-list"></div>
             <div>
                 <input type="text" id="new-todo" placeholder="new todo" onkeypress="if(event.key === 'Enter') { addTodo(); }">
                 <button onclick="addTodo()">Add</button>

@@ -5,6 +5,10 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.nav-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .todo-item {
     display: flex;
     align-items: center;
@@ -27,8 +31,10 @@
     flex-direction: column;
     align-items: center;
 }
+#todo-list {
+    margin-bottom: 20px;
+}
 
 body {
-    /* make background color neutral grey */
     background-color: #f0f0f0;
 }

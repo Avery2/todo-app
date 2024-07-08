@@ -1,9 +1,10 @@
 let todos = [];
+let history = [];
+let redoHistory = [];
+const MAX_HISTORY = 10;
 
 function showSection(section) {
-    document.getElementById('choose').classList.add('hidden');
-    document.getElementById('do').classList.add('hidden');
-    document.getElementById('break').classList.add('hidden');
+    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
     document.getElementById(section).classList.remove('hidden');
     if (section === 'do') {
         updateDoSection();
@@ -13,6 +14,7 @@ function showSection(section) {
 function addTodo() {
     const newTodo = document.getElementById('new-todo').value;
     if (newTodo) {
+        recordHistory();
         todos.push({ text: newTodo, done: false });
         document.getElementById('new-todo').value = '';
         renderTodoList();
@@ -22,21 +24,22 @@ function addTodo() {
 function renderTodoList() {
     const todoList = document.getElementById('todo-list');
     todoList.innerHTML = '';
-    todos.forEach((todo, index) => {
+
+    const sortedTodos = todos.slice().map((todo, index) => ({ ...todo, originalIndex: index }));
+    sortedTodos.sort((a, b) => a.done - b.done);
+
+    sortedTodos.forEach(todo => {
         const todoItem = document.createElement('div');
         todoItem.classList.add('todo-item');
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.onchange = () => toggleTodoDone(index);
+        checkbox.checked = todo.done;
+        checkbox.onchange = () => toggleTodoDone(todo.originalIndex);
 
         const text = document.createElement('span');
         text.textContent = todo.text;
-
-        if (todo.done) {
-            checkbox.checked = true;
-            text.classList.add('todo-done');
-        }
+        if (todo.done) text.classList.add('todo-done');
 
         todoItem.appendChild(checkbox);
         todoItem.appendChild(text);
@@ -45,6 +48,7 @@ function renderTodoList() {
 }
 
 function toggleTodoDone(index) {
+    recordHistory();
     todos[index].done = !todos[index].done;
     renderTodoList();
 }
@@ -75,24 +79,25 @@ function updateDoSection() {
 }
 
 function deferNext() {
+    recordHistory();
     const todo = todos.shift();
     if (todo) {
         todos.splice(1, 0, todo);
         updateDoSection();
-        renderTodoList();
     }
 }
 
 function deferLast() {
+    recordHistory();
     const todo = todos.shift();
     if (todo) {
         todos.push(todo);
         updateDoSection();
-        renderTodoList();
     }
 }
 
 function randomTodo() {
+    recordHistory();
     const incompleteTodos = todos.filter(todo => !todo.done);
     if (incompleteTodos.length > 0) {
         const randomIndex = Math.floor(Math.random() * incompleteTodos.length);
@@ -100,12 +105,48 @@ function randomTodo() {
         todos = todos.filter(todo => todo !== randomTodo);
         todos.unshift(randomTodo);
         updateDoSection();
+    }
+}
+
+function recordHistory() {
+    history.push(JSON.stringify(todos));
+    if (history.length > MAX_HISTORY) {
+        history.shift();
+    }
+    redoHistory = []; // Clear redo history whenever a new action is recorded
+}
+
+function undo() {
+    if (history.length > 0) {
+        redoHistory.push(JSON.stringify(todos));
+        todos = JSON.parse(history.pop());
         renderTodoList();
+        updateDoSection();
+    }
+}
+
+function redo() {
+    if (redoHistory.length > 0) {
+        history.push(JSON.stringify(todos));
+        todos = JSON.parse(redoHistory.pop());
+        renderTodoList();
+        updateDoSection();
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     renderTodoList();
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+            if (e.shiftKey) {
+                e.preventDefault();
+                redo();
+            } else {
+                e.preventDefault();
+                undo();
+            }
+        }
+    });
 });
 
 window.addEventListener('beforeunload', function (e) {
