@@ -78,12 +78,15 @@ function updateDoSection() {
         checkbox.type = 'checkbox';
         checkbox.checked = todo.done;
         checkbox.onchange = () => toggleTodoDone(todos.indexOf(todo));
+        const checkboxId = `todo-${todos.indexOf(todo)}`;
+        checkbox.id = checkboxId;
 
-        const text = document.createElement('span');
-        text.textContent = todo.text;
+        const label = document.createElement('label');
+        label.textContent = todo.text;
+        label.setAttribute('for', checkboxId);
 
         todoItem.appendChild(checkbox);
-        todoItem.appendChild(text);
+        todoItem.appendChild(label);
         currentTodo.appendChild(todoItem);
     } else {
         currentTodo.textContent = 'no todos left 😌';
