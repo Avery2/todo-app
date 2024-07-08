@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List App</title>
     <!-- <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"> -->
+    <link rel="stylesheet" href="simple-css.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="container">
-        <div id="nav" class="nav-section">
+        <header>
             <nav id="nav-links">
-                <span onclick="showSection('choose')" id="choose-link" class="nav-link">Choose</span> |
-                <span onclick="showSection('do')" id="do-link" class="nav-link">Do</span> |
-                <span onclick="showSection('break')" id="break-link" class="nav-link">Break</span>
+                <a onclick="showSection('choose')" id="choose-link" class="current nav-link">Choose</a></li>
+                <a onclick="showSection('do')" id="do-link" class="nav-link">Do</a></li>
+                <a onclick="showSection('break')" id="break-link" class="nav-link">Break</a></li>
             </nav>
-            </nav>
-        </div>
+        </header>
 
         <div id="choose" class="section">
             <h3>Choose</h3>

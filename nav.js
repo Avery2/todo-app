@@ -8,9 +8,10 @@ function showSection(section) {
         updateChooseSection();
     }
 
-    // Set the selected section in the nav to be bold
-    document.querySelectorAll('.nav-link').forEach(link => link.style.fontWeight = 'normal');
-    document.getElementById(`${section}-link`).style.fontWeight = 'bold';
+    // Remove current from all nav-link elements
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('current'));
+
+    document.getElementById(`${section}-link`).classList.add('current');
 }
 
 window.addEventListener('beforeunload', function (e) {
