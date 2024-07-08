@@ -28,11 +28,15 @@ function renderTodoList() {
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.checked = todo.done;
         checkbox.onchange = () => toggleTodoDone(index);
 
         const text = document.createElement('span');
         text.textContent = todo.text;
+
+        if (todo.done) {
+            checkbox.checked = true;
+            text.classList.add('todo-done');
+        }
 
         todoItem.appendChild(checkbox);
         todoItem.appendChild(text);
