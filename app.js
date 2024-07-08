@@ -63,6 +63,13 @@ function toggleTodoDone(index) {
     updateDoSection();
 }
 
+function clearCompleted() {
+    recordHistory();
+    todos = todos.filter(todo => !todo.done);
+    updateChooseSection();
+    updateDoSection();
+}
+
 function updateDoSection(index = -1) {
     const currentTodo = document.getElementById('current-todo');
     currentTodo.innerHTML = '';
