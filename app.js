@@ -93,8 +93,7 @@ function updateDoSection() {
 
 function deferNext() {
     recordHistory();
-    const todo = todos.shift();
-    if (todo) {
+    if (todos.shift()) {
         todos.splice(1, 0, todo);
         updateDoSection();
     }
@@ -102,8 +101,7 @@ function deferNext() {
 
 function deferLast() {
     recordHistory();
-    const todo = todos.shift();
-    if (todo) {
+    if (todos.shift()) {
         todos.push(todo);
         updateDoSection();
     }
