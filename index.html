@@ -10,10 +10,11 @@
 <body>
     <div id="container">
         <div id="nav" class="nav-section">
-            <nav>
-                <button onclick="showSection('choose')">Choose</button>
-                <button onclick="showSection('do')">Do</button>
-                <button onclick="showSection('break')">Break</button>
+            <nav id="nav-links">
+                <span onclick="showSection('choose')" id="choose-link" class="nav-link">Choose</span> |
+                <span onclick="showSection('do')" id="do-link" class="nav-link">Do</span> |
+                <span onclick="showSection('break')" id="break-link" class="nav-link">Break</span>
+            </nav>
             </nav>
         </div>
 
