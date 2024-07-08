@@ -37,7 +37,7 @@
         <h3>Choose</h3>
         <div id="todo-list"></div>
         <div>
-            <input type="text" id="new-todo" placeholder="New TODO">
+            <input type="text" id="new-todo" placeholder="new todo" onkeypress="if(event.key === 'Enter') { addTodo(); }">
             <button onclick="addTodo()">Add</button>
         </div>
     </div>
