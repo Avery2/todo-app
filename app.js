@@ -105,7 +105,8 @@ function deferNext() {
 
 function deferLast() {
     recordHistory();
-    if (todos.shift()) {
+    const todo = todos.shift()
+    if (todo) {
         todos.push(todo);
         updateDoSection();
     }
