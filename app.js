@@ -95,8 +95,10 @@ function updateDoSection() {
 
 function deferNext() {
     recordHistory();
-    if (todos.shift()) {
-        todos.splice(1, 0, todo);
+    const nextIndex = todos.findIndex(todo => !todo.done);
+    if (nextIndex !== -1) {
+        const deferredTodo = todos.splice(nextIndex, 1)[0];
+        todos.splice(nextIndex + 1, 0, deferredTodo);
         updateDoSection();
     }
 }
