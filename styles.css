@@ -24,6 +24,11 @@
     color: grey;
     text-decoration: line-through;
 }
+/* For do page */
+#current-todo {
+    margin-bottom: 20px;
+}
+
 #container {
     margin: 0 auto;
     padding: 0 20px;
@@ -31,6 +36,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+/* For choose page */
 #todo-list {
     margin-bottom: 20px;
 }
