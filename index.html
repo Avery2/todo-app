@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>todo app</title>
-    <!-- Use Simple CSS for now -->
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <!-- Link to js -->
-    <script src="app.js"></script>
 </head>
 <body>
-
+    <nav id="nav-buttons">
+        <button onclick="showSection('choose-section')">Choose</button>
+        <button onclick="showSection('do-section')">Do</button>
+        <button onclick="showSection('break-section')">Break</button>
+    </nav>
+    <div id="choose-section" class="section">
+        <h2>Choose TODOs</h2>
+        <ul id="todo-list"></ul>
+        <input type="text" id="new-todo" placeholder="New TODO">
+        <button onclick="addTodo()">Add TODO</button>
+    </div>
+    <div id="do-section" class="section">
+        <h2>Do a TODO</h2>
+        <button onclick="chooseTodo()">Choose TODO</button>
+        <p id="chosen-todo"></p>
+    </div>
+    <div id="break-section" class="section">
+        <h2>Break</h2>
+        <p>Take a break! You've earned it.</p>
+    </div>
+    <!-- Link to js -->
+    <script src="app.js"></script>
 </body>
 </html>
