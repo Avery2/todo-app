@@ -1,4 +1,11 @@
-let todos = [];
+let todos = [
+    { text: 'Buy milk', done: false },
+    { text: 'Feed the cat', done: false },
+    { text: 'Do homework', done: false },
+    { text: 'Call mom', done: false },
+    { text: 'Read a book', done: false },
+    { text: 'Go for a walk', done: false },
+];
 let history = [];
 let redoHistory = [];
 const MAX_HISTORY = 10;
