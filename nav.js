@@ -8,3 +8,8 @@ function showSection(section) {
         updateChooseSection();
     }
 }
+
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = ''; // Legacy method for older browsers
+});

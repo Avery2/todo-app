@@ -161,8 +161,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-window.addEventListener('beforeunload', function (e) {
-    e.preventDefault();
-    e.returnValue = ''; // Legacy method for older browsers
-});
