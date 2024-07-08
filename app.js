@@ -30,6 +30,14 @@ function updateChooseSection() {
     const todoList = document.getElementById('todo-list');
     todoList.innerHTML = '';
 
+    // Disable the clear-completed-button if there are no completed todos
+    const clearCompletedButton = document.getElementById('clear-completed-button');
+    if (todos.some(todo => todo.done)) {
+        clearCompletedButton.removeAttribute('disabled');
+    } else {
+        clearCompletedButton.setAttribute('disabled', 'disabled');
+    }
+
     // Sort finished todos to the bottom
     const sortedTodos = todos.slice().map((todo, index) => ({ ...todo, originalIndex: index }));
     sortedTodos.sort((a, b) => a.done - b.done);
