@@ -11,14 +11,6 @@ let history = [];
 let redoHistory = [];
 const MAX_HISTORY = 10;
 
-function showSection(section) {
-    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
-    document.getElementById(section).classList.remove('hidden');
-    if (section === 'do') {
-        updateDoSection();
-    }
-}
-
 function addTodo() {
     const newTodo = document.getElementById('new-todo').value;
     if (newTodo) {
