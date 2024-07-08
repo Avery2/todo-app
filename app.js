@@ -1,10 +1,11 @@
 let todos = [
-    { text: 'Buy milk', done: false },
-    { text: 'Feed the cat', done: false },
-    { text: 'Do homework', done: false },
-    { text: 'Call mom', done: false },
-    { text: 'Read a book', done: false },
-    { text: 'Go for a walk', done: false },
+    { text: '(1) Buy milk', done: false },
+    { text: '(2) Buy eggs', done: false },
+    { text: '(3) Buy bread', done: false },
+    { text: '(4) Buy butter', done: false },
+    { text: '(5) Buy cheese', done: false },
+    { text: '(6) Buy jam', done: false },
+    { text: '(7) Buy coffee', done: false },
 ];
 let history = [];
 let redoHistory = [];
