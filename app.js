@@ -95,16 +95,19 @@ function updateDoSection() {
 
 function deferNext() {
     recordHistory();
+    todos.sort((a, b) => a.done - b.done);
     const nextIndex = todos.findIndex(todo => !todo.done);
     if (nextIndex !== -1) {
         const deferredTodo = todos.splice(nextIndex, 1)[0];
         todos.splice(nextIndex + 1, 0, deferredTodo);
+        todos.sort((a, b) => a.done - b.done);
         updateDoSection();
     }
 }
 
 function deferLast() {
     recordHistory();
+    todos.sort((a, b) => a.done - b.done);
     const todo = todos.shift()
     if (todo) {
         todos.push(todo);
