@@ -9,18 +9,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <nav id="nav-links">
+            <a onclick="showSection('choose')" id="choose-link" class="current nav-link">Choose</a></li>
+            <a onclick="showSection('do')" id="do-link" class="nav-link">Do</a></li>
+            <a onclick="showSection('break')" id="break-link" class="nav-link">Break</a></li>
+        </nav>
+    </header>
     <div id="container">
-        <header>
-            <nav id="nav-links">
-                <a onclick="showSection('choose')" id="choose-link" class="current nav-link">Choose</a></li>
-                <a onclick="showSection('do')" id="do-link" class="nav-link">Do</a></li>
-                <a onclick="showSection('break')" id="break-link" class="nav-link">Break</a></li>
-            </nav>
-        </header>
-
         <div id="choose" class="section">
-            <h3>Choose</h3>
-            <div id="todo-list"></div>
+            <div id="todo-list" class="notice"></div>
             <div>
                 <input type="text" id="new-todo" placeholder="new todo" onkeypress="if(event.key === 'Enter') { addTodo(); }">
                 <button onclick="addTodo()">Add</button>
@@ -28,7 +26,6 @@
         </div>
 
         <div id="do" class="section hidden">
-            <h3>Do</h3>
             <div class="notice" id="current-todo"></div>
             <div class="buttons">
                 <button onclick="deferNext()">Defer to Next</button>
@@ -38,8 +35,7 @@
         </div>
 
         <div id="break" class="section hidden">
-            <h3>Break</h3>
-            <p>Take a break ☀️</p>
+            <p class="notice">Take a break ☀️</p>
         </div>
     </div>
     <script src="app.js"></script>
