@@ -103,3 +103,8 @@ function randomTodo() {
 document.addEventListener('DOMContentLoaded', () => {
     renderTodoList();
 });
+
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = ''; // Legacy method for older browsers
+});
