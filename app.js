@@ -63,21 +63,24 @@ function toggleTodoDone(index) {
     updateDoSection();
 }
 
-function updateDoSection() {
+function updateDoSection(index = -1) {
     const currentTodo = document.getElementById('current-todo');
     currentTodo.innerHTML = '';
 
-    const todoIndex = todos.findIndex(todo => !todo.done);
-    if (todoIndex !== -1) {
-        const todo = todos[todoIndex];
+    if (index === -1) {
+        index = todos.findIndex(todo => !todo.done);
+    }
+
+    if (index !== -1) {
+        const todo = todos[index];
         const todoItem = document.createElement('div');
         todoItem.classList.add('todo-item');
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = todo.done;
-        checkbox.onchange = () => toggleTodoDone(todoIndex);
-        const checkboxId = `todo-${todoIndex}`;
+        checkbox.onchange = () => toggleTodoDone(index);
+        const checkboxId = `todo-${index}`;
         checkbox.id = checkboxId;
 
         const label = document.createElement('label');
@@ -117,14 +120,15 @@ function deferLast() {
 
 function randomTodo() {
     recordHistory();
-    const incompleteTodos = todos.filter(todo => !todo.done);
-    if (incompleteTodos.length > 0) {
-        const randomIndex = Math.floor(Math.random() * incompleteTodos.length);
-        const randomTodo = incompleteTodos[randomIndex];
-        todos = todos.filter(todo => todo !== randomTodo);
-        todos.unshift(randomTodo);
-        updateDoSection();
-    }
+
+    // Get the index of some unfinished todo
+    const unfinishedTodos = todos
+        .map((todo, index) => ({ ...todo, originalIndex: index }))
+        .filter(todo => !todo.done);
+    const randomIndex = Math.floor(Math.random() * unfinishedTodos.length);
+    const randomTodo = unfinishedTodos[randomIndex];
+
+    updateDoSection(randomTodo.originalIndex);
 }
 
 function recordHistory() {
