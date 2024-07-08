@@ -36,13 +36,16 @@ function renderTodoList() {
         checkbox.type = 'checkbox';
         checkbox.checked = todo.done;
         checkbox.onchange = () => toggleTodoDone(todo.originalIndex);
+        const checkboxId = `todo-${todo.originalIndex}`;
+        checkbox.id = checkboxId;
 
-        const text = document.createElement('span');
-        text.textContent = todo.text;
-        if (todo.done) text.classList.add('todo-done');
+        const label = document.createElement('label');
+        label.textContent = todo.text;
+        label.setAttribute('for', checkboxId);
+        if (todo.done) label.classList.add('todo-done');
 
         todoItem.appendChild(checkbox);
-        todoItem.appendChild(text);
+        todoItem.appendChild(label);
         todoList.appendChild(todoItem);
     });
 }
