@@ -3,30 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todo app</title>
+    <title>Todo List App</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+        }
+        .todo-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <nav id="nav-buttons">
-        <button onclick="showSection('choose-section')">Choose</button>
-        <button onclick="showSection('do-section')">Do</button>
-        <button onclick="showSection('break-section')">Break</button>
-    </nav>
-    <div id="choose-section" class="section">
-        <h2>Choose TODOs</h2>
-        <ul id="todo-list"></ul>
-        <input type="text" id="new-todo" placeholder="New TODO">
-        <button onclick="addTodo()">Add TODO</button>
+    <div id="nav" class="section">
+        <nav>
+            <button onclick="showSection('choose')">Choose</button>
+            <button onclick="showSection('do')">Do</button>
+            <button onclick="showSection('break')">Break</button>
+        </nav>
     </div>
-    <div id="do-section" class="section">
-        <h2>Do a TODO</h2>
-        <button onclick="chooseTodo()">Choose TODO</button>
-        <p id="chosen-todo"></p>
+
+    <div id="choose" class="section">
+        <h3>Choose</h3>
+        <div id="todo-list"></div>
+        <div>
+            <input type="text" id="new-todo" placeholder="New TODO">
+            <button onclick="addTodo()">Add</button>
+        </div>
     </div>
-    <div id="break-section" class="section">
-        <h2>Break</h2>
-        <p>Take a break! You've earned it.</p>
+
+    <div id="do" class="section hidden">
+        <h3>Do</h3>
+        <div id="current-todo"></div>
+        <div class="buttons">
+            <button onclick="deferNext()">Defer to Next</button>
+            <button onclick="deferLast()">Defer to Last</button>
+            <button onclick="randomTodo()">Random</button>
+        </div>
     </div>
-    <!-- Link to js -->
+
+    <div id="break" class="section hidden">
+        <h3>Break</h3>
+        <p>Take a break :)</p>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

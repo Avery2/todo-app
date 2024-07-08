@@ -1,11 +1,20 @@
 let todos = [];
 
+function showSection(section) {
+    document.getElementById('choose').classList.add('hidden');
+    document.getElementById('do').classList.add('hidden');
+    document.getElementById('break').classList.add('hidden');
+    document.getElementById(section).classList.remove('hidden');
+    if (section === 'do') {
+        updateDoSection();
+    }
+}
+
 function addTodo() {
-    const todoInput = document.getElementById('new-todo');
-    const todoText = todoInput.value.trim();
-    if (todoText) {
-        todos.push(todoText);
-        todoInput.value = '';
+    const newTodo = document.getElementById('new-todo').value;
+    if (newTodo) {
+        todos.push({ text: newTodo, done: false });
+        document.getElementById('new-todo').value = '';
         renderTodoList();
     }
 }
@@ -14,48 +23,83 @@ function renderTodoList() {
     const todoList = document.getElementById('todo-list');
     todoList.innerHTML = '';
     todos.forEach((todo, index) => {
-        const li = document.createElement('li');
-        li.textContent = todo;
-        li.classList.add('todo-item');
-        li.appendChild(createRemoveButton(index));
-        todoList.appendChild(li);
+        const todoItem = document.createElement('div');
+        todoItem.classList.add('todo-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.done;
+        checkbox.onchange = () => toggleTodoDone(index);
+
+        const text = document.createElement('span');
+        text.textContent = todo.text;
+
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(text);
+        todoList.appendChild(todoItem);
     });
 }
 
-function createRemoveButton(index) {
-    const button = document.createElement('button');
-    button.textContent = 'Remove';
-    button.onclick = () => removeTodo(index);
-    return button;
-}
-
-function removeTodo(index) {
-    todos.splice(index, 1);
+function toggleTodoDone(index) {
+    todos[index].done = !todos[index].done;
     renderTodoList();
 }
 
-function chooseTodo() {
-    if (todos.length > 0) {
-        const chosenTodo = todos[0]; // Simple selection logic for now
-        document.getElementById('chosen-todo').textContent = `Next TODO: ${chosenTodo}`;
+function updateDoSection() {
+    const currentTodo = document.getElementById('current-todo');
+    currentTodo.innerHTML = '';
+
+    const todo = todos.find(todo => !todo.done);
+    if (todo) {
+        const todoItem = document.createElement('div');
+        todoItem.classList.add('todo-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.done;
+        checkbox.onchange = () => toggleTodoDone(todos.indexOf(todo));
+
+        const text = document.createElement('span');
+        text.textContent = todo.text;
+
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(text);
+        currentTodo.appendChild(todoItem);
     } else {
-        document.getElementById('chosen-todo').textContent = 'No TODOs available';
+        currentTodo.textContent = 'No TODOs left!';
     }
 }
 
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        if (section.id === sectionId) {
-            section.style.display = 'block';
-        } else {
-            section.style.display = 'none';
-        }
-    });
+function deferNext() {
+    const todo = todos.shift();
+    if (todo) {
+        todos.splice(1, 0, todo);
+        updateDoSection();
+        renderTodoList();
+    }
 }
 
-// Initialize the app by showing the first section
+function deferLast() {
+    const todo = todos.shift();
+    if (todo) {
+        todos.push(todo);
+        updateDoSection();
+        renderTodoList();
+    }
+}
+
+function randomTodo() {
+    const incompleteTodos = todos.filter(todo => !todo.done);
+    if (incompleteTodos.length > 0) {
+        const randomIndex = Math.floor(Math.random() * incompleteTodos.length);
+        const randomTodo = incompleteTodos[randomIndex];
+        todos = todos.filter(todo => todo !== randomTodo);
+        todos.unshift(randomTodo);
+        updateDoSection();
+        renderTodoList();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    showSection('choose-section');
     renderTodoList();
 });
