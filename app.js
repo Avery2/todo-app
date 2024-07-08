@@ -69,16 +69,17 @@ function updateDoSection() {
     const currentTodo = document.getElementById('current-todo');
     currentTodo.innerHTML = '';
 
-    const todo = todos.find(todo => !todo.done);
-    if (todo) {
+    const todoIndex = todos.findIndex(todo => !todo.done);
+    if (todoIndex !== -1) {
+        const todo = todos[todoIndex];
         const todoItem = document.createElement('div');
         todoItem.classList.add('todo-item');
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = todo.done;
-        checkbox.onchange = () => toggleTodoDone(todos.indexOf(todo));
-        const checkboxId = `todo-${todos.indexOf(todo)}`;
+        checkbox.onchange = () => toggleTodoDone(todoIndex);
+        const checkboxId = `todo-${todoIndex}`;
         checkbox.id = checkboxId;
 
         const label = document.createElement('label');
